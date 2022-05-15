@@ -16,6 +16,7 @@ function computerPlay(){
 /* Generate random number 1-3*/
 let x = Math.floor((Math.random() * 3) + 1);
 
+/* Return string based on the random number */
 if (x == 1) {
     return "Rock";
 }
@@ -29,8 +30,35 @@ else {
 }
 }
 
-alert(computerPlay());
-        
+/* Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - 
+the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: 
+"You Lose! Paper beats Rock" */
+
+function singleRound(playerSelection, computerSelection)
+
+{
+
+
+
+return (computerSelection == "Rock" && playerSelection.toLowerCase() == "scissors") ? "You loose! Rock beats Scissors"
+    : (computerSelection == "Rock" && playerSelection.toLowerCase() == "paper") ? "You win! Paper beats Rock"
+    : (computerSelection == "Rock" && playerSelection.toLowerCase() == "rock") ? "Even!"
+
+    : (computerSelection == "Paper" && playerSelection.toLowerCase() == "rock") ? "You loose! Paper beats Rock"
+    : (computerSelection == "Paper" && playerSelection.toLowerCase() == "scissors") ? "You win! Scissors beats Paper"
+    : (computerSelection == "Paper" && playerSelection.toLowerCase() == "paper") ? "Even!"
+    
+    : (computerSelection == "Scissors" && playerSelection.toLowerCase() == "rock") ? "You win! Rock beats Scissors"
+    : (computerSelection == "Scissors" && playerSelection.toLowerCase() == "scissors") ? "Even!"
+    : (computerSelection == "Scissors" && playerSelection.toLowerCase() == "paper") ? "You loose! Scissors beats Paper"
+
+    : "Error";
+}
+
+
+alert(singleRound("Scissors", computerPlay()))
+
+      
     </script>
     
 </body>
