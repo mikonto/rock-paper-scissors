@@ -5,134 +5,96 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <script>
-/* computerPlay-function that randomly return either 'Rock', 'Paper' or 'Scissors' */
-function computerPlay(){
+<h1>Choose Rock, Paper or Scissors</h1>
+<div id="container">
+    <div><button id="rockBtn">Rock</button></div>
+    <div><button id="paperBtn">Paper</button></div>
+    <div><button id="scissorsBtn">Scissors</button></div>
+</div>
+<div id = "container-2">
+    <div id = "resultRound"></div>
+    <div id = "score"></div>
+    <div id = "result"></div>
+</div>
 
-/* Generate random number 1-3*/
-let x = Math.floor((Math.random() * 3) + 1);
+<script>
 
-/* Return string based on the random number */
-return (x == 1) ? "rock"
-: (x == 2) ? "paper"
-: "scissors";
+function computerPlay(){ // returns "rock", "paper" or "scissors" randomly
+    let x = Math.floor((Math.random() * 3) + 1);
+    return (x == 1) ? "rock" : (x == 2) ? "paper" : "scissors";
 }
 
-/* playRound-function that plays a single round of Rock Paper Scissors and return a string that declares the winner of the round. 
-The function takes two paramenter playerSelection and computerSelection  */
+const container2 = document.querySelector('#container-2');
+const results = document.querySelector('#results');
+const resultRound = document.querySelector('#resultRound');
+const score = document.querySelector('#score');
 
-function playRound(playerSelection, computerSelection){
+const newGame = document.createElement('button');
+newGame.setAttribute("id", "newGame");
+newGame.textContent = "Start new game";
 
-    /* If computer chooses rock */
-    if (computerSelection == "rock"){
-        if (playerSelection.toLowerCase() == "scissors") {
-            return "You loose! Rock beats Scissors.";
-        }
-        else if (playerSelection.toLowerCase() == "paper") {
-            return "You win! Paper beats Rock.";
-        }
-        else if (playerSelection.toLowerCase() == "rock") {
-            return "You both had Rock. Try again.";
-        }
-        else {
-            return "Error. Try again.";
-        }
+let computerScore = 0;
+let yourScore = 0;
+
+document.getElementById("rockBtn").addEventListener("click", function (){
+    playRound("rock", computerPlay());
+});
+document.getElementById("paperBtn").addEventListener("click", function (){
+    playRound("paper", computerPlay());
+});
+document.getElementById("scissorsBtn").addEventListener("click", function (){
+    playRound("scissors", computerPlay());
+});
+
+function playRound(playerSelection, computerSelection) {
+    if (computerScore === 5 || yourScore === 5) return;
+    let result;
+    if (playerSelection === "rock") {
+        if (computerSelection === "scissors") {result = "You won! Rock beats Scissors.", yourScore += 1;}
+        else if (computerSelection === "paper") {result = "You loose! Paper beats Rock.", computerScore += 1;}
+        else if (computerSelection === "rock") {result = "You both had Rock. Try again."}
     }
 
-/* If computer chooses paper */
-    else if (computerSelection == "paper"){
-        if (playerSelection.toLowerCase() == "rock") {
-            return "You loose! Paper beats Rock";
-        }
-        else if (playerSelection.toLowerCase() == "scissors") {
-            return "You win! Scissors beats Paper";
-        }
-        else if (playerSelection.toLowerCase() == "paper") {
-            return "You both had Paper. Try again.";
-        }
-        else {
-            return "Error. Try again.";
-        }
+    else if (playerSelection === "paper") {
+        if (computerSelection === "scissors") {result = "You loose! Scissors beats Paper.", computerScore += 1;}
+        else if (computerSelection === "paper") {result = "You both had Paper. Try again."}
+        else if (computerSelection === "rock") {result = "You won! Paper beats Rock.", yourScore += 1;}
     }
 
-/* If computer chooses scissors */
-    else if (computerSelection == "scissors"){
-        if (playerSelection.toLowerCase() == "rock") {
-            return "You win! Rock beats Scissors";
-        }
-        else if (playerSelection.toLowerCase() == "scissors") {
-            return "You both had Scissors. Try again.";
-        }
-        else if (playerSelection.toLowerCase() == "paper") {
-            return "You loose! Scissors beats Paper";
-        }
-        else {
-            return "Error. Try again.";
-        }
+    else if (playerSelection === "scissors") {
+        if (computerSelection === "scissors") {result = "You both had Scissors. Try again.";}
+        else if (computerSelection === "paper") {result = "You won! Scissors beat Paper.", yourScore += 1;}
+        else if (computerSelection === "rock") {result = "You loose! Rock beat Scissors.", computerScore += 1;}
     }
+
+    resultRound.textContent = result;
+    score.textContent = `You ${yourScore}, Computer ${computerScore}`;
+    if (computerScore === 5 || yourScore === 5) finalResult();
+
 }
 
-/* Game-function that starts 5 games (playRound-function), tracks wins and losses, and returns the final result */
-
-function game(){
-    /* These variables track wins and losses */
-    let win = 0;
-    let loose = 0;
-    
-    /* A loop for 5 games*/
-    for (let i = 0; i < 5; i++) {
-        /* Random answer from the computer */
-        const computerSelection = computerPlay()
-        /* Asks user to choose Rock, Paper or Scissors */
-        const playerSelection = prompt("Choose Rock, Paper or Scissors");
-
-        console.log(playRound(playerSelection, computerSelection));
-
-/* Counts wins according to strings that playRound-function returns */
-        if ((playRound(playerSelection, computerSelection) === "You win! Paper beats Rock") || 
-        (playRound(playerSelection, computerSelection) === "You win! Scissors beats Paper") || 
-        (playRound(playerSelection, computerSelection) === "You win! Rock beats Scissors")) {
-            /* Adds 1 into win variable */
-            win = 1+win;
-        } 
-
-/* Counts losses according to strings that playRound-function returns */
-        else if ((playRound(playerSelection, computerSelection) === "You loose! Rock beats Scissors") || 
-        (playRound(playerSelection, computerSelection) === "You loose! Paper beats Rock") || 
-        (playRound(playerSelection, computerSelection) === "You loose! Scissors beats Paper")) {
-            /* Adds 1 into loose variable */
-            loose = 1+loose;
-        } 
-
-/* If player and computer chooses the same, that round is ignored */
-        else if ((playRound(playerSelection, computerSelection) === "You both had Rock. Try again.") || 
-        (playRound(playerSelection, computerSelection) === "You both had Paper. Try again.") || 
-        (playRound(playerSelection, computerSelection) === "You both had Scissors. Try again.") || 
-        (playRound(playerSelection, computerSelection) === "Error. Try again.")) { 
-            /* Adds 1 more round into the loop */
-            --i;
-        } 
-    }
-
-    /* Final result */
-    console.log("##################################")
-
-    /* If there are more wins than losses, the user gets the following message */
-    if (win > loose) {
-        return `!! YOU WON! (You won ${win} rounds and lost ${loose} rounds) !!`;
-    }
-
-    /* If there are more losses than wins, the user gets the following message */
-    else if (loose > win){
-        return `!! YOU LOST! (You lost ${loose} rounds and won ${win} rounds) !!`;
-    }
+function finalResult(){
+    if (computerScore > yourScore) {result.textContent = "You lost the match!";}
+    else {result.textContent = "You won the match!";}
+    container2.appendChild(newGame);
 }
 
-/* Starts the game and logs the result into the console */
-console.log(game())
+// check if newGame exists before addEventListener()
+if (newGame) {
+  newGame.addEventListener('click', function () {
+    computerScore = 0;
+    yourScore = 0;
+    score.textContent = "";
+    result.textContent = "";
+    resultRound.textContent = "";
+    newGame.remove();
+  });
+}
+
 
 </script>
     
