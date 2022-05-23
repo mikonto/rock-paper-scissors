@@ -1,0 +1,38 @@
+[33mcommit 518e81a6e35003235e1d46e852c2edd8fd59f0ec[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/rps-ui[m[33m, [m[1;32mrps-ui[m[33m)[m
+Author: Mikael Kontolampi <mikael.kontolampi@gmail.com>
+Date:   Sun May 22 20:07:32 2022 +0200
+
+    add graphical UI
+
+[33mcommit 355ca52d7fa4b2aabc6b99be689f3bbd1381c45e[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Mikael Kontolampi <mikael.kontolampi@gmail.com>
+Date:   Sun May 15 19:07:48 2022 +0200
+
+    Finalize the assignment Rock Paper Scissors
+
+[33mcommit cc810a56553a5d4760b7b80636d99c74307e4222[m
+Author: Mikael Kontolampi <mikael.kontolampi@gmail.com>
+Date:   Sun May 15 13:31:54 2022 +0200
+
+    Add function singleRound
+    
+    Add function that plays a single round of Rock Paper Scissors.
+
+[33mcommit 92f366a3638396c92f65787f375d7f2cf2680684[m
+Author: Mikael Kontolampi <mikael.kontolampi@gmail.com>
+Date:   Sun May 15 13:00:32 2022 +0200
+
+    Add function computerPlay to return Rock, Paper
+    or Scissors randomly
+
+[33mcommit 3f0900c0faf790cfcf42e94a91dbf410fd20cc85[m
+Author: mikonto <35730964+mikonto@users.noreply.github.com>
+Date:   Sun May 15 12:48:57 2022 +0200
+
+    Update README.md
+
+[33mcommit 69abb93e5f4d753d84af613f26ab675d989e0264[m
+Author: mikonto <35730964+mikonto@users.noreply.github.com>
+Date:   Sun May 15 12:47:33 2022 +0200
+
+    Initial commit

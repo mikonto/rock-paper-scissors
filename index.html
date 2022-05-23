@@ -16,9 +16,9 @@
     <div><button id="scissorsBtn">Scissors</button></div>
 </div>
 <div id = "container-2">
-    <div id = "resultRound"></div>
+    <div id = "roundResult"></div>
     <div id = "score"></div>
-    <div id = "result"></div>
+    <div id = "finalResult"></div>
 </div>
 
 <script>
@@ -29,13 +29,12 @@ function computerPlay(){ // returns "rock", "paper" or "scissors" randomly
 }
 
 const container2 = document.querySelector('#container-2');
-const results = document.querySelector('#results');
-const resultRound = document.querySelector('#resultRound');
+const roundResult = document.querySelector('#roundResult');
 const score = document.querySelector('#score');
+const finalResult = document.querySelector('#finalResult');
 
-const newGame = document.createElement('button');
-newGame.setAttribute("id", "newGame");
-newGame.textContent = "Start new game";
+const newGameBtn = document.createElement('button');
+newGameBtn.textContent = "Start new game";
 
 let computerScore = 0;
 let yourScore = 0;
@@ -71,27 +70,27 @@ function playRound(playerSelection, computerSelection) {
         else if (computerSelection === "rock") {result = "You loose! Rock beat Scissors.", computerScore += 1;}
     }
 
-    resultRound.textContent = result;
+    roundResult.textContent = result;
     score.textContent = `You ${yourScore}, Computer ${computerScore}`;
-    if (computerScore === 5 || yourScore === 5) finalResult();
+    if (computerScore === 5 || yourScore === 5) showFinalResult();
 
 }
 
-function finalResult(){
-    if (computerScore > yourScore) {result.textContent = "You lost the match!";}
-    else {result.textContent = "You won the match!";}
-    container2.appendChild(newGame);
+function showFinalResult(){
+    if (computerScore > yourScore) {finalResult.textContent = "You lost the match!";}
+    else {finalResult.textContent = "You won the match!";}
+    container2.appendChild(newGameBtn);
 }
 
-// check if newGame exists before addEventListener()
-if (newGame) {
-  newGame.addEventListener('click', function () {
+
+if (newGameBtn) { // check if newGame exists before addEventListener()
+  newGameBtn.addEventListener('click', function () { // start new game (reset scores, texts and remove newGameBtn button)
     computerScore = 0;
     yourScore = 0;
     score.textContent = "";
-    result.textContent = "";
-    resultRound.textContent = "";
-    newGame.remove();
+    finalResult.textContent = "";
+    roundResult.textContent = "";
+    newGameBtn.remove();
   });
 }
 
